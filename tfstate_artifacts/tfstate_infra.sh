@@ -39,6 +39,44 @@ az ad sp create --id "$PROD_APP"
 
 # role assignment and federated credentials are left
 
+az role assignment create \
+    --assignee "$STAGING_APP" \
+    --role "Contributor" \
+    --scope "/subscriptions/$SUB_IT"
+
+az role assignment create \
+    --assignee "$STAGING_APP" \
+    --role "Storage Blob Data Contributor" \
+    --scope "/subscriptions/$SUB_ID/resourceGroups/$TF_RG_NAME/providers/Microsoft.Storage/storageAccounts/$STRG_ACCT_NAME"
+
+az role assignment create \
+    --assignee "$PROD_APP" \
+    --role "Contributor" \
+    --scope "/subscriptions/$SUB_IT"
+
+az role assignment create \
+    --assignee "$PROD_APP" \
+    --role "Storage Blob Data Contributor" \
+    --scope "/subscriptions/$SUB_ID/resourceGroups/$TF_RG_NAME/providers/Microsoft.Storage/storageAccounts/$STRG_ACCT_NAME"
+
+az ad app federated-credential create \
+    --id "$STAGING_APP" \
+    --parameters '{
+        "name": "github-stg-env",
+        "issuer": "https://token.actions.githubusercontent.com",
+        "subject": "repo:yoii18/tf-cicd-1:environment:staging",
+        "audiences": ["api://AzureADTokenExchange"]
+    }'
+
+az ad app federated-credential create \
+    --id "$PROD_APP" \
+    --parameters '{
+        "name": "github-prd-env",
+        "issuer": "https://token.actions.githubusercontent.com",
+        "subject": "repo:yoii18/tf-cicd-1:environment:production",
+        "audiences": ["api://AzureADTokenExchange"]
+    }'
+
 echo "AZURE_TENANT_ID          = $TENANT_ID"
 echo "AZURE_SUBSCRIPTION_ID    = $SUB_ID"
 echo "AZURE_CLIENT_ID_STAGING  = $STAGING_APP"
