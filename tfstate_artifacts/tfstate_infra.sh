@@ -37,6 +37,8 @@ az ad sp create --id "$STAGING_APP"
 PROD_APP=$(az ad app create --display-name "prod-app" --query appId -o tsv)
 az ad sp create --id "$PROD_APP"
 
+# role assignment and federated credentials are left
+
 echo "AZURE_TENANT_ID          = $TENANT_ID"
 echo "AZURE_SUBSCRIPTION_ID    = $SUB_ID"
 echo "AZURE_CLIENT_ID_STAGING  = $STAGING_APP"
