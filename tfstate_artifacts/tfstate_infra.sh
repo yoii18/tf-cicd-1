@@ -37,8 +37,6 @@ az ad sp create --id "$STAGING_APP"
 PROD_APP=$(az ad app create --display-name "prod-app" --query appId -o tsv)
 az ad sp create --id "$PROD_APP"
 
-# role assignment and federated credentials are left
-
 az role assignment create \
     --assignee "$STAGING_APP" \
     --role "Contributor" \
