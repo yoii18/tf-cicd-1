@@ -16,14 +16,14 @@ if ! az storage account show --name "$STRG_ACCT_NAME" --resource-group "$TF_RG_N
         --name "$STRG_ACCT_NAME" \
         --resource-group "$TF_RG_NAME" \
         --sku "Standard_LRS" \
-        --min-tls-version "TLS_1_2" \
+        --min-tls-version "TLS1_2" \
         --hns true
 fi
 
-if [ "$(az storage container exists --name staging)" = "false" ]; then
-    az storage container create --name staging --acount-name "$STRG_ACCT_NAME"
+if [ "$(az storage container exists --name staging --account-name "$STRG_ACCT_NAME" --query exists -o tsv)" = "false" ]; then
+    az storage container create --name staging --account-name "$STRG_ACCT_NAME"
 fi
 
-if [ "$(az storage container exists --name prod)" = "false" ]; then
-    az storage container create --name prod --acount-name "$STRG_ACCT_NAME"
+if [ "$(az storage container exists --name prod --account-name "$STRG_ACCT_NAME" --query exists -o tsv)" = "false" ]; then
+    az storage container create --name prod --account-name "$STRG_ACCT_NAME"
 fi
