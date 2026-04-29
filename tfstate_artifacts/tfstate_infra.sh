@@ -42,7 +42,7 @@ az ad sp create --id "$PROD_APP"
 az role assignment create \
     --assignee "$STAGING_APP" \
     --role "Contributor" \
-    --scope "/subscriptions/$SUB_IT"
+    --scope "/subscriptions/$SUB_ID"
 
 az role assignment create \
     --assignee "$STAGING_APP" \
@@ -52,7 +52,7 @@ az role assignment create \
 az role assignment create \
     --assignee "$PROD_APP" \
     --role "Contributor" \
-    --scope "/subscriptions/$SUB_IT"
+    --scope "/subscriptions/$SUB_ID"
 
 az role assignment create \
     --assignee "$PROD_APP" \
