@@ -5,7 +5,7 @@ resource "azurerm_data_factory" "adf" {
 }
 
 resource "azurerm_role_assignment" "adf_adls_access" {
-  scope                = azurerm_storage_account.strgacct.id
+  scope                = var.scope
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_data_factory.adf.identity[0].principal_id
 }
@@ -46,7 +46,7 @@ resource "azurerm_data_factory_custom_dataset" "adls_ds" {
   data_factory_id = azurerm_data_factory.adf.id
   type            = "AzureBlobFSFile"
   linked_service {
-    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.name
+    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.adls_ls.name
   }
   type_properties_json = jsonencode({
     location = {

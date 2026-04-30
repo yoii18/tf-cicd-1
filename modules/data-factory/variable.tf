@@ -17,3 +17,8 @@ variable "adf_name" {
   type        = string
   description = "storage account name"
 }
+
+variable "scope" {
+  type        = string
+  description = "storage account name"
+}

@@ -16,6 +16,7 @@ module "adf" {
   rg_name              = azurerm_resource_group.rg.name
   storage_account_name = var.storage_account_name
   adf_name             = var.adf_name
+  scope                = module.storage.storage_account_id
 }
 
 module "pipeline" {
