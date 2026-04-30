@@ -37,6 +37,16 @@ jobs:
               -backend-config="use_azuread_auth=true" \
               -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
               -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      - name: Debug - verify files on runner
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          echo "=== All files in root ==="
+          ls -la
+          echo "=== Content of tfvars ==="
+          cat staging_vars.tfvars
+          echo "=== Terraform version ==="
+          terraform version
       - name: terraform plan
         run: |
             terraform plan -var-file="staging_vars.tfvars" -out=tfplan
