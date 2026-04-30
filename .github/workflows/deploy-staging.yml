@@ -35,7 +35,7 @@ jobs:
               -backend-config="container_name=staging" \
               -backend-config="key=staging.terraform.tfstate" \
               -backend-config="use_azuread_auth=true" \
-              -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}"
+              -backend-config="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
               -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
       - name: terraform plan
         run: |
