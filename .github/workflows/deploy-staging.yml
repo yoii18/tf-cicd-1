@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: hashicopr/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v3
       - name: azure login
         uses: azure/login@v2
         with:
