@@ -1,3 +1,8 @@
+resource "azurerm_resource_group" "rg" {
+  name     = var.rg_name
+  location = var.location
+}
+
 module "storage" {
   source               = "./modules/storage-account"
   location             = var.location
