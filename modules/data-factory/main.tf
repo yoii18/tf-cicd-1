@@ -2,6 +2,10 @@ resource "azurerm_data_factory" "adf" {
   location            = var.location
   resource_group_name = var.rg_name
   name                = var.adf_name
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 resource "azurerm_role_assignment" "adf_adls_access" {
