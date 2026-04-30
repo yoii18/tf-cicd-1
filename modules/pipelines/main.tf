@@ -1,7 +1,7 @@
 resource "azurerm_data_factory_pipeline" "copy_pipeline" {
   name            = "copy_pipeline1"
   data_factory_id = var.adf_id
-  activities_json = jsondecode(
+  activities_json = jsonencode(
     {
       name      = "Copy Data"
       type      = "Copy"
