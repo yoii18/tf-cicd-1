@@ -17,3 +17,18 @@ variable "adf_name" {
   type        = string
   description = "storage account name"
 }
+
+variable "adf_id" {
+  type        = string
+  description = "storage account id"
+}
+
+variable "adls_ds_name" {
+  type        = string
+  description = "storage account id"
+}
+
+variable "rest_api_ds_name" {
+  type        = string
+  description = "storage account id"
+}
