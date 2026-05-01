@@ -15,7 +15,7 @@ variable "storage_account_name" {
 
 variable "adf_name" {
   type        = string
-  description = "storage account name"
+  description = "adf name"
 }
 
 variable "scope" {
