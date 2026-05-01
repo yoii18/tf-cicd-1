@@ -17,9 +17,9 @@ resource "azurerm_data_factory" "adf" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.adf_uai.principal_id]
+    identity_ids = [azurerm_user_assigned_identity.adf_uai.id]
   }
-  depends_on = [azurerm_user_assigned_identity.adf_uai]
+  depends_on = [azurerm_role_assignment.adf_adls_access]
 }
 
 resource "azurerm_data_factory_linked_custom_service" "rest_api_ls" {
