@@ -1,17 +1,25 @@
+resource "azurerm_user_assigned_identity" "adf_uai" {
+  name                = "uai-${var.adf_name}"
+  location            = var.location
+  resource_group_name = var.rg_name
+}
+
+resource "azurerm_role_assignment" "adf_adls_access" {
+  scope                = var.scope
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_user_assigned_identity.adf_uai.principal_id
+}
+
 resource "azurerm_data_factory" "adf" {
   location            = var.location
   resource_group_name = var.rg_name
   name                = var.adf_name
 
   identity {
-    type = "SystemAssigned"
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.adf_uai.principal_id]
   }
-}
-
-resource "azurerm_role_assignment" "adf_adls_access" {
-  scope                = var.scope
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_data_factory.adf.identity[0].principal_id
+  depends_on = [azurerm_user_assigned_identity.adf_uai]
 }
 
 resource "azurerm_data_factory_linked_custom_service" "rest_api_ls" {

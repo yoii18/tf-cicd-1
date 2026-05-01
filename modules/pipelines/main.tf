@@ -1,11 +1,12 @@
 resource "azurerm_data_factory_pipeline" "copy_pipeline" {
   name            = "copy_pipeline1"
   data_factory_id = var.adf_id
-  activities_json = jsonencode(
+  activities_json = jsonencode([
     {
-      name      = "Copy Data"
-      type      = "Copy"
-      dependsOn = []
+      name           = "Copy Data"
+      type           = "Copy"
+      dependsOn      = []
+      userProperties = []
       typeProperties = {
         source = {
           type               = "RestSource"
@@ -28,6 +29,6 @@ resource "azurerm_data_factory_pipeline" "copy_pipeline" {
         type          = "DatasetReference"
       }]
     }
-  )
+  ])
 
 }
