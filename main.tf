@@ -28,4 +28,7 @@ module "pipeline" {
   storage_account_name = var.storage_account_name
   adls_ds_name         = module.adf.adls_ds_name
   rest_api_ds_name     = module.adf.rest_api_ds_name
+
+  adls_ds_id     = module.adf.adls_ds_id
+  rest_api_ds_id = module.adf.rest_api_ds_id
 }

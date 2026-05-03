@@ -32,3 +32,13 @@ variable "rest_api_ds_name" {
   type        = string
   description = "storage account id"
 }
+
+variable "adls_ds_id" {
+  type        = string
+  description = "storage account id"
+}
+
+variable "rest_api_ds_id" {
+  type        = string
+  description = "storage account id"
+}

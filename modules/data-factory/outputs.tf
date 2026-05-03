@@ -9,3 +9,11 @@ output "adls_ds_name" {
 output "rest_api_ds_name" {
   value = azurerm_data_factory_custom_dataset.rest_api_ds.name
 }
+
+output "adls_ds_id" {
+  value = azurerm_data_factory_custom_dataset.adls_ds.id
+}
+
+output "rest_api_ds_id" {
+  value = azurerm_data_factory_custom_dataset.rest_api_ds.id
+}
