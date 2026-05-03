@@ -31,4 +31,6 @@ module "pipeline" {
 
   adls_ds_id     = module.adf.adls_ds_id
   rest_api_ds_id = module.adf.rest_api_ds_id
+
+  depends_on = [module.adf]
 }
