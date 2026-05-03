@@ -33,6 +33,12 @@ resource "azurerm_data_factory_linked_custom_service" "rest_api_ls" {
   })
 }
 
+resource "azurerm_data_factory_credential_user_managed_identity" "uami_credential" {
+  name            = "uami-credential"
+  data_factory_id = azurerm_data_factory.adf.id
+  identity_id     = azurerm_user_assigned_identity.adf_uai.id
+}
+
 resource "azurerm_data_factory_linked_custom_service" "adls_ls" {
   name            = "adls_ls"
   type            = "AzureBlobFS"
@@ -45,13 +51,9 @@ resource "azurerm_data_factory_linked_custom_service" "adls_ls" {
       type          = "CredentialReference"
     }
   })
+  depends_on = [azurerm_data_factory_credential_user_managed_identity.uami_credential]
 }
 
-resource "azurerm_data_factory_credential_user_managed_identity" "uami_credential" {
-  name            = "uami-credential"
-  data_factory_id = azurerm_data_factory.adf.id
-  identity_id     = azurerm_user_assigned_identity.adf_uai.id
-}
 # resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "adls_ls" {
 #   name            = "adls_ls"
 #   data_factory_id = azurerm_data_factory.adf.id
@@ -80,7 +82,7 @@ resource "azurerm_data_factory_custom_dataset" "adls_ds" {
   data_factory_id = azurerm_data_factory.adf.id
   type            = "Json"
   linked_service {
-    name = azurerm_data_factory_linked_service_data_lake_storage_gen2.adls_ls.name
+    name = azurerm_data_factory_linked_custom_service.adls_ls.name
   }
   type_properties_json = jsonencode({
     location = {
