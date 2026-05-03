@@ -1,3 +1,10 @@
+resource "terraform_data" "dataset_ids" {
+  input = {
+    adls_ds_id     = var.adls_ds_id
+    rest_api_ds_id = var.rest_api_ds_id
+  }
+}
+
 resource "azurerm_data_factory_pipeline" "copy_pipeline" {
   name            = "copy_pipeline1"
   data_factory_id = var.adf_id
@@ -34,5 +41,5 @@ resource "azurerm_data_factory_pipeline" "copy_pipeline" {
       }]
     }
   ])
-
+  depends_on = [terraform_data.dataset_ids]
 }
