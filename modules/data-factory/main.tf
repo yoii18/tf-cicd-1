@@ -27,8 +27,9 @@ resource "azurerm_data_factory_linked_custom_service" "rest_api_ls" {
   type            = "RestService"
   data_factory_id = azurerm_data_factory.adf.id
   type_properties_json = jsonencode({
-    authenticationType = "Anonymous"
-    url                = "https://codeforces.com/"
+    authentication_type               = "Anonymous"
+    url                               = "https://codeforces.com/"
+    enableServerCertificateValidation = true
   })
 }
 
