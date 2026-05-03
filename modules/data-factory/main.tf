@@ -52,7 +52,6 @@ resource "azurerm_data_factory_credential_user_managed_identity" "uami_credentia
   data_factory_id = azurerm_data_factory.adf.id
   identity_id     = azurerm_user_assigned_identity.adf_uai.id
 }
-
 # resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "adls_ls" {
 #   name            = "adls_ls"
 #   data_factory_id = azurerm_data_factory.adf.id
