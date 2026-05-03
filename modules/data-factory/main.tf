@@ -27,7 +27,7 @@ resource "azurerm_data_factory_linked_custom_service" "rest_api_ls" {
   type            = "RestService"
   data_factory_id = azurerm_data_factory.adf.id
   type_properties_json = jsonencode({
-    authentication_type               = "Anonymous"
+    authenticationType                = "Anonymous"
     url                               = "https://codeforces.com/"
     enableServerCertificateValidation = true
   })
@@ -66,11 +66,9 @@ resource "azurerm_data_factory_custom_dataset" "adls_ds" {
       type       = "AzureBlobFSLocation"
       fileSystem = "staging"
       folderPath = "raw/data"
-      fileName   = "data.parquet"
+      fileName   = "data.json"
     }
-    compression = {
-      type = "None"
-    }
+    encodingName = "UTF-8"
   })
   schema_json = jsonencode([])
 }

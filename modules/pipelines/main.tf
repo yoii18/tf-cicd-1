@@ -11,11 +11,15 @@ resource "azurerm_data_factory_pipeline" "copy_pipeline" {
         source = {
           type               = "RestSource"
           httpRequestTimeout = "00:05:00"
+          requestMethod      = "GET"
         }
         sink = {
           type = "AzureBlobFSSink"
           storeSettings = {
             type = "AzureBlobFSWriteSettings"
+          }
+          formatSettings = {
+            type = "JsonWriteSettings"
           }
         }
         enableStaging = false
